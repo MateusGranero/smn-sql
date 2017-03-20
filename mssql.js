@@ -72,6 +72,15 @@ function initialize(dbConnect) {
 //sempre informe conexão e callback ou callback (nessa ordem).
 //always pass connection and callback or only callback (in this order).
 function sqlExecute(procName, parameters) {
+	if(!procName){
+		let errObj = {err:{
+			name:'Invalid procedure name',
+			description:'The procedure name is invalid or does not exists'
+		}};
+
+		arguments.length == 3 ? arguments[2](errObj) : arguments[3](errObj);
+	}
+
 	var sqlService = this;
 	var command = sqlService.request(arguments.length == 4 ? arguments[2] : undefined);
 
